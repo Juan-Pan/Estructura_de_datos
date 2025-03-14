@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define MAXN 1000
+#define MAXN 1000000
 
-int binarySearch(long long int A[], int i, int j, long long int k){
+int binarySearch(long long int A[], int i, int j, long long int k)
+{
     int r = -1, m;
 
     while (i <= j)
@@ -13,43 +14,44 @@ int binarySearch(long long int A[], int i, int j, long long int k){
         {
             r = m;
             break;
-        } else if (k > A[m])
+        }
+        else if (k > A[m])
             i = m + 1;
         else
-            j = m - 1;    
+            j = m - 1;
     }
-    
+
     return r;
 }
 
-int main(){
-    int acumulador[MAXN+1], n, i, count = 0, j = 0;
-    long long int triangular[MAXN+1], result;
-
+int main()
+{
+    int acumulador[MAXN + 1], n, i, count = 0, j = 0;
+    long long int triangular[MAXN + 1], result;
 
     for (i = 1; i <= MAXN; i++)
     {
-        triangular[i] = (long long int)i*(i + 1) / 2; 
-    }
+        triangular[i] = triangular[i-1]+i;
     
+    }
 
     for (i = 2; i <= MAXN; i++)
-    {   
-        result = binarySearch(triangular, 1, MAXN, triangular[i] + triangular[i-1]);
+    {
+        result = binarySearch(triangular, 1, MAXN, triangular[i] + triangular[i - 1]);
         if (result > 0)
-            j = result;  
-        
+            j = result;
+
         if (i == j)
         {
-            count++;    
+            count++;
         }
-        
-        acumulador[i] = count;   
+
+        acumulador[i] = count;
     }
-    /*while(scanf("%d", &n) && n!= 0){
+    while (scanf("%d", &n) && n != 0)
+    {
         printf("%d\n", acumulador[n]);
-    } */
-    printf("Array acumulador [8]: %d\n", acumulador[8]);
+    }
 
     return 0;
 }
