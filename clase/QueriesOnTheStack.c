@@ -102,41 +102,48 @@ struct node *push(struct node *top, int element)
     // Función principal
     int main()
     {
-        struct node *top = NULL; // Inicializamos la pila como vacía
-        int operation, element;  // Variables para la operación y el elemento a insertar/eliminar
-
-        // Bucle para leer operaciones hasta el final de la entrada estándar
-        while (scanf("%d", &operation) != EOF)
+        struct node *top = NULL; 
+        int t, q, operation, element;
+    
+        scanf("%d", &t); 
+    
+        while (t-- )
         {
-            if (operation == 1)
-            {                             // Operación de push
-                scanf("%d", &element);    // Leer el elemento a insertar
-                top = push(top, element); // Insertar el elemento en la pila
-                printStack(top);          // Imprimir el estado actual de la pila
-            }
-            else
+            scanf("%d", &q); 
+    
+            top = NULL; 
+    
+            for (int i = 0; i < q; i++)
             {
-                if (operation == 2)
-                { // Operación de pop
+                scanf("%d", &operation);
+    
+                if (operation == 1)
+                { // Push
+                    scanf("%d", &element);
+                    top = push(top, element);
+                }
+                else if (operation == 2)
+                { // Pop
                     if (!stackEmpty(top))
-                    {                                      // Verificar si la pila no está vacía
-                        element = pop(&top);               // Eliminar el elemento superior
-                        printf("Elemento: %d\n", element); // Imprimir el elemento eliminado
-                        printStack(top);                   // Imprimir el estado actual de la pila
+                    {
+                        pop(&top);
+                    }
+                }
+                else if (operation == 3)
+                { 
+                    if (!stackEmpty(top))
+                    {
+                        printf("%d\n", abs(top->maximum - top->minimum));
                     }
                     else
                     {
-                        printf("The stack is empty\n"); // Mensaje si la pila está vacía
+                        printf("Empty!\n");
                     }
-                }
-                else
-                {
-                    printf("Bad use.\n 1.Push\n 2.Pop\n"); // Mensaje de error para operaciones inválidas
                 }
             }
         }
-
-        return 0; // Finalizar el programa
+    
+        return 0;
     }
 
     /*
